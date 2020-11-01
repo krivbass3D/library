@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "author".
@@ -30,7 +32,9 @@ class Author extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstname', 'surname', 'patronymic'], 'string', 'max' => 255],
+            [['firstname','surname'], 'required'],
+            [['surname'], 'string','min' => 3],
+            [['firstname', 'surname', 'patronymic'],'string']
         ];
     }
 
@@ -52,8 +56,10 @@ class Author extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBookAuthors()
+
+    public function getBooks()
     {
-        return $this->hasMany(BookAuthor::className(), ['author_id' => 'id']);
+        return $this->hasMany(Book::className(), ['id' => 'book_id'])
+            ->viaTable('book_author', ['author_id' => 'id']);
     }
 }
