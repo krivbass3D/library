@@ -50,10 +50,10 @@ PublicAsset::register($this);
                     <li><a data-toggle="dropdown" class="dropdown-toggle" href="/">Главная</a>
 
                     </li>
-                    <li><a data-toggle="dropdown" class="dropdown-toggle" href="<?= Url::toRoute(['admin/book']);?>">Книги</a>
+                    <li><a data-toggle="dropdown" class="dropdown-toggle" href="admin/book">Книги</a>
 
                     </li>
-                    <li><a data-toggle="dropdown" class="dropdown-toggle" href="/">Авторы</a>
+                    <li><a data-toggle="dropdown" class="dropdown-toggle" href="admin/author">Авторы</a>
 
                     </li>
                 </ul>
