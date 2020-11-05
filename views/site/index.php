@@ -1,53 +1,185 @@
 <?php
+use yii\helpers\Url;
+use yii\widgets\LinkPager;
 
-/* @var $this yii\web\View */
-
-$this->title = 'My Yii Application';
 ?>
-<div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
+<!--main content start-->
+<div class="main-content">
+    <div class="container">
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-md-8">
+                <?php foreach ($books as $book):?>
+                    <article class="post">
+                        <div class="post-thumb">
+                            <a href="<?= Url::toRoute(['site/view','id'=>$book->id]);?>"><img src="<?= $book->getImage();?>" alt=""></a>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                            <a href="<?= Url::toRoute(['site/view','id'=>$book->id]) ;?>" class="post-thumb-overlay text-center">
+                                <div class="text-uppercase text-center">Подробнее</div>
+                            </a>
+                        </div>
+                        <div class="post-content">
+                            <header class="entry-header text-center text-uppercase">
+                                <h6><a href="#"> Travel</a></h6>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+                                <h1 class="entry-title"><a href="<?= Url::toRoute(['site/view','id'=>$book->id]) ;?>"><?= $book->title;?></a></h1>
+
+
+                            </header>
+                            <div class="entry-content">
+                                <p><?= $book->description;?>
+                                </p>
+
+                                <div class="btn-continue-reading text-center text-uppercase">
+                                    <a href="<?= Url::toRoute(['site/view','id'=>$book->id]) ;?>" class="more-link">Подробнее..</a>
+                                </div>
+                            </div>
+                            <div class="social-share">
+                                <span class="social-share-title pull-left text-capitalize">By <a href="#">Rubel</a> <?= $book->date;?></span>
+                                <!--
+                                <ul class="text-center pull-right">
+                                    <li><a class="s-facebook" href="#"><i class="fa fa-eye"></i></a></li>325
+                                </ul>
+                                -->
+                            </div>
+                        </div>
+                    </article>
+                <?php endforeach;?>
+
+
+                <?php
+
+                echo LinkPager::widget([
+                    'pagination' => $pagination,
+                ]);
+
+                ?>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-md-4" data-sticky_column>
+                <div class="primary-sidebar">
+                    <!--
+                    <aside class="widget">
+                        <h3 class="widget-title text-uppercase text-center">Popular Posts</h3>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                        <div class="popular-post">
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                            <a href="#" class="popular-img"><img src="public/images/p1.jpg" alt="">
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                                <div class="p-overlay"></div>
+                            </a>
+
+                            <div class="p-content">
+                                <a href="#" class="text-uppercase">Home is peaceful Place</a>
+                                <span class="p-date">February 15, 2016</span>
+
+                            </div>
+                        </div>
+                        <div class="popular-post">
+
+                            <a href="#" class="popular-img"><img src="public/images/p1.jpg" alt="">
+
+                                <div class="p-overlay"></div>
+                            </a>
+
+                            <div class="p-content">
+                                <a href="#" class="text-uppercase">Home is peaceful Place</a>
+                                <span class="p-date">February 15, 2016</span>
+                            </div>
+                        </div>
+                        <div class="popular-post">
+
+
+                            <a href="#" class="popular-img"><img src="public/images/p1.jpg" alt="">
+
+                                <div class="p-overlay"></div>
+                            </a>
+
+                            <div class="p-content">
+                                <a href="#" class="text-uppercase">Home is peaceful Place</a>
+                                <span class="p-date">February 15, 2016</span>
+                            </div>
+                        </div>
+                    </aside>
+                    <aside class="widget pos-padding">
+                        <h3 class="widget-title text-uppercase text-center">Recent Posts</h3>
+
+                        <div class="thumb-latest-posts">
+
+
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#" class="popular-img"><img src="public/images/r-p.jpg" alt="">
+                                        <div class="p-overlay"></div>
+                                    </a>
+                                </div>
+                                <div class="p-content">
+                                    <a href="#" class="text-uppercase">Home is peaceful Place</a>
+                                    <span class="p-date">February 15, 2016</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="thumb-latest-posts">
+
+
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#" class="popular-img"><img src="public/images/r-p.jpg" alt="">
+                                        <div class="p-overlay"></div>
+                                    </a>
+                                </div>
+                                <div class="p-content">
+                                    <a href="#" class="text-uppercase">Home is peaceful Place</a>
+                                    <span class="p-date">February 15, 2016</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="thumb-latest-posts">
+
+
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#" class="popular-img"><img src="public/images/r-p.jpg" alt="">
+                                        <div class="p-overlay"></div>
+                                    </a>
+                                </div>
+                                <div class="p-content">
+                                    <a href="#" class="text-uppercase">Home is peaceful Place</a>
+                                    <span class="p-date">February 15, 2016</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="thumb-latest-posts">
+
+
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#" class="popular-img"><img src="public/images/r-p.jpg" alt="">
+                                        <div class="p-overlay"></div>
+                                    </a>
+                                </div>
+                                <div class="p-content">
+                                    <a href="#" class="text-uppercase">Home is peaceful Place</a>
+                                    <span class="p-date">February 15, 2016</span>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                    -->
+                    <aside class="widget border pos-padding">
+                        <h3 class="widget-title text-uppercase text-center">Авторы</h3>
+                        <ul>
+                            <?php foreach ($authors as $author):?>
+                            <li>
+                                <a href="#"><?= $author->firstname;?> <?= $author->surname;?></a>
+                                <span class="post-count pull-right"> (<?= $author->getBooks()->count();?>)</span>
+                            </li>
+                            <?php endforeach;?>
+                        </ul>
+                    </aside>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
+<!-- end main content-->
+<!--footer start-->

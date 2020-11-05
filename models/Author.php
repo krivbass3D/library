@@ -62,4 +62,9 @@ class Author extends \yii\db\ActiveRecord
         return $this->hasMany(Book::className(), ['id' => 'book_id'])
             ->viaTable('book_author', ['author_id' => 'id']);
     }
+
+    public function getAuthorsCount()
+    {
+        return $this->getAuthors()->count();
+    }
 }

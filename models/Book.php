@@ -115,4 +115,27 @@ class Book extends \yii\db\ActiveRecord
     {
         BookAuthor::deleteAll(['book_id'=>$this->id]);
     }
+
+    public static function getAll($pageSize = 5)
+    {
+        // build a DB query to get all articles with status = 1
+        $query = Book::find();
+
+        // get the total number of articles (but do not fetch the article data yet)
+        $count = $query->count();
+
+        // create a pagination object with the total count
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>$pageSize]);
+
+        // limit the query using the pagination and retrieve the articles
+        $books = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        $data['books'] = $books;
+        $data['pagination'] = $pagination;
+
+        return $data;
+    }
+
 }

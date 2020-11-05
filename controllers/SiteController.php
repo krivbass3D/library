@@ -2,13 +2,17 @@
 
 namespace app\controllers;
 
+use app\models\Author;
+use app\models\Book;
 use Yii;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+
 
 class SiteController extends Controller
 {
@@ -61,7 +65,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+
+
+        $data = Book::getAll(3);
+        $authors = Author::find()->Limit(10)->all();
+
+
+        return $this->render('index',[
+            'books'=>$data['books'],
+            'pagination'=>$data['pagination'],
+            'authors' => $authors
+        ]);
     }
 
     /**
@@ -124,5 +138,17 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionView($id)
+    {
+        $book = Book::findOne($id);
+        return $this->render('single',[
+            'book'=>$book
+        ]);
+    }
+    public function actionBook()
+    {
+        return $this->render('book');
     }
 }
